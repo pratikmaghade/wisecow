@@ -53,3 +53,6 @@ jobs:
           # Rollout restart the deployment
           kubectl rollout restart deployment/wisecow-deployment
         EOF
+      env:
+          SSH_AUTH_SOCK: /tmp/ssh-XXXXXXJSnRVL/agent.1579
+          SSH_AGENT_PID: 1580
