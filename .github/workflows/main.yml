@@ -37,8 +37,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y kubectl
 
-      - name: Set up Kubeconfig
-        run: echo $KUBECONFIG | base64 --decode > /home/ubuntu/.kube/config
+      - name: Set Up Kubernetes Config
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
 
       - name: Deploy to Kubernetes
         run: |
