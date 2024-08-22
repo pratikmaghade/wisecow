@@ -46,9 +46,9 @@ jobs:
           echo "Deploying to Kubernetes cluster on EC2..."
 
           # Apply Kubernetes manifests
-          kubectl apply -f /path/to/Deployment.yml
-          kubectl apply -f /path/to/Service.yml
-          kubectl apply -f /path/to/ingress.yml
+          kubectl apply -f /home/ubuntu/wisecow/Deployment.yml
+          kubectl apply -f /home/ubuntu/wisecow/Service.yml
+          kubectl apply -f /home/ubuntu/wisecow/ingress.yml
 
           # Rollout restart the deployment
           kubectl rollout restart deployment/wisecow-deployment
