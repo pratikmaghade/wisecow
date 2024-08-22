@@ -39,6 +39,9 @@ jobs:
           echo "${{ secrets.CLIENT_CRT }}" | base64 --decode > $HOME/.kube/client.crt
           echo "${{ secrets.CLIENT_KEY }}" | base64 --decode > $HOME/.kube/client.key
           echo "${{ secrets.CA_CRT }}" | base64 --decode > $HOME/.kube/ca.crt
+          chmod 600 $HOME/.kube/client.crt
+          chmod 600 $HOME/.kube/client.key
+          chmod 600 $HOME/.kube/ca.crt
 
       - name: Deploy to Kubernetes
         run: |
