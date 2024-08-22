@@ -35,19 +35,18 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Debug SSH Key (optional)
-        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" | head -n 10
-        # Remove this step in production to avoid exposing sensitive data
-
-      - name: SSH to EC2 and Deploy
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@<EC2_PUBLIC_IP> << 'EOF'
-            # Commands to run on EC2 instance
-            cd /path/to/your/app
-            docker pull pratikmaghade/wisecow:latest
-            docker stop your-container || true
-            docker rm your-container || true
-            docker run -d -p 4499:4499 --name your-container pratikmaghade/wisecow:latest
-          EOF
+      - name: Configure kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          version: 'latest'
         env:
-          SSH_AUTH_SOCK: /tmp/ssh-XXXXXXg86wgv/agent.1563
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f deployment.yml
+          kubectl apply -f service.yml
+          kubectl apply -f ingress.yml
+
+      - name: Verify Deployment
+        run: kubectl get all
