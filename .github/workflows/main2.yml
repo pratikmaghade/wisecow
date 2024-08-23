@@ -42,9 +42,9 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f /home/ubuntu/wisecow/Deployment.yml
-          kubectl apply -f /home/ubuntu/wisecow/Service.yml
-          kubectl apply -f /home/ubuntu/wisecow/ingress.yml
+          kubectl apply -f Deployment.yml
+          kubectl apply -f Service.yml
+          kubectl apply -f ingress.yml
 
       - name: Expose Service on Port 4499
         run: |
